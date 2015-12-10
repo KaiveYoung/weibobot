@@ -22,7 +22,7 @@ def getclient():
         app_secret=APP_SECRET,
         redirect_uri=CALLBACK_URL)
     url = client.get_authorize_url()
-    output = os.popen('phantomjs geturl.js')
+    output = os.popen('phantomjs ./geturl.js')
     type(output)
     a = output.read()
     code = a.split('=')[1].rstrip()
