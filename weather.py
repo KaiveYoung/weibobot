@@ -21,7 +21,7 @@ def getclient():
         app_secret=APP_SECRET,
         redirect_uri=CALLBACK_URL)
     url = client.get_authorize_url()
-    output = os.popen('phantomjs 1.js')
+    output = os.popen('phantomjs geturl.js')
     type(output)
     a = output.read()
     code = a.split('=')[1].rstrip()
@@ -123,7 +123,6 @@ def getimg():
     cmd = 'wget -O 1.jpg ' + image
     os.popen(cmd)
 
-
 def posttext(client):
     text = getforecast()
     utext = unicode(text, "UTF-8")
@@ -136,6 +135,7 @@ def postimg(client):
     text=getweather()
     r = client.statuses.upload.post(status=text, pic=f)
     f.close()  # APIClient
+    os.popen("rm -f 1.jpg") 
 if __name__ == '__main__':
 	client = getclient()
 	if sys.argv[1]=='morning':
