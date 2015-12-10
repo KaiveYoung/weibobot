@@ -15,6 +15,7 @@ CALLBACK_URL = 'https://api.weibo.com/oauth2/default.html'  # callback url
 
 # 获取微博授权，手动操作
 
+
 def getclient():
     client = APIClient(
         app_key=APP_KEY,
@@ -123,6 +124,7 @@ def getimg():
     cmd = 'wget -O 1.jpg ' + image
     os.popen(cmd)
 
+
 def posttext(client):
     text = getforecast()
     utext = unicode(text, "UTF-8")
@@ -132,13 +134,13 @@ def posttext(client):
 def postimg(client):
     getimg()
     f = open('./1.jpg', 'rb')
-    text=getweather()
+    text = getweather()
     r = client.statuses.upload.post(status=text, pic=f)
     f.close()  # APIClient
-    os.popen("rm -f 1.jpg") 
+    os.popen("rm -f 1.jpg")
 if __name__ == '__main__':
-	client = getclient()
-	if sys.argv[1]=='morning':
-		postimg(client)
-	elif sys.argv[1]=='night':
-		posttext(client)
+    client = getclient()
+    if sys.argv[1] == 'morning':
+        postimg(client)
+    elif sys.argv[1] == 'night':
+        posttext(client)
