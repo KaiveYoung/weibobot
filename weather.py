@@ -122,7 +122,7 @@ def getimg():
     image = soup.find(
         'div',
         class_='post hentry uncustomized-post-template').find('meta').attrs['content']
-    cmd = 'wget -O 1.jpg ' + image
+    cmd = 'wget -O /tmp/1.jpg ' + image
     os.popen(cmd)
 
 
@@ -134,11 +134,11 @@ def posttext(client):
 
 def postimg(client):
     getimg()
-    f = open('./1.jpg', 'rb')
+    f = open('/tmp/1.jpg', 'rb')
     text = getweather()
     r = client.statuses.upload.post(status=text, pic=f)
     f.close()  # APIClient
-    os.popen("rm -f 1.jpg")
+    os.popen("rm -f /tmp/1.jpg")
 if __name__ == '__main__':
     client = getclient()
     if sys.argv[1] == 'morning':
