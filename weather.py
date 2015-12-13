@@ -50,8 +50,7 @@ def getweather():
         tianqi2 = today.find_all('img')[1].attrs['alt'].encode('UTF-8')
     tianqi1 = today.find_all('img')[0].attrs['alt'].encode('UTF-8')
     rand = random.randint(0, 8)
-    tip = soup2.find_all('div', class_='tips')[
-        rand].find('p').text.encode('UTF-8')
+    tip = soup2.find_all('div', class_='tips')[rand].find('p').text.encode('UTF-8')
     kongqidict = {
         "优": "空气很好，可以外出活动，呼吸新鲜空气，拥抱大自然！",
         "良": "空气好，可以外出活动，除极少数对污染物特别敏感的人群以外，对公众没有危害！",
