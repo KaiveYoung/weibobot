@@ -69,7 +69,7 @@ def getweather():
             tianqi = tianqi1 + "转" + tianqi2
     else:
         tianqi = tianqi1
-    weibotext = "今天天气:" + tianqi + "，温度:" + wendu + \
+    weibotext = "#银川#今天天气:" + tianqi + "，温度:" + wendu + \
         "，空气质量:" + zhiliang + "，" + tip2 + "喵了个咪温馨提示," + tip
 
     return weibotext
