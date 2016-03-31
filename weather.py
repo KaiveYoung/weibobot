@@ -1,11 +1,14 @@
 #!/usr/bin/python2
 # -*- coding: utf-8 -*-
+import json
+import urllib2
 import requests
 import random
 from bs4 import BeautifulSoup
 from weibo import APIClient
 import os
 import sys
+import cookielib
 __version__ = '1.0'
 __author__ = 'MongoliaNavy'
 
@@ -23,9 +26,15 @@ def getclient():
         redirect_uri=CALLBACK_URL)
     url = client.get_authorize_url()
     pwd=sys.path[0]
-    output = os.popen('phantomjs '+pwd+'/geturl.js')
-    type(output)
-    a = output.read()
+    cookie_jar = cookielib.MozillaCookieJar()
+    cookies = open('cookies.txt').read()
+    for cookie in json.loads(cookies):  
+        print cookie['name']  
+        cookie_jar.set_cookie(cookielib.Cookie(version=0, name=cookie['name'], value=cookie['value'], port=None, port_specified=False, domain=cookie['domain'], domain_specified=False, domain_initial_dot=False, path=cookie['path'], path_specified=True, secure=cookie['secure'], expires=None, discard=True, comment=None, comment_url=None, rest={'HttpOnly': None}, rfc2109=False))
+    req = urllib2.Request("https://api.weibo.com/oauth2/authorize?redirect_uri=https%3A//api.weibo.com/oauth2/default.html&response_type=code&client_id=4021901498")
+    opener = urllib2.build_opener(urllib2.HTTPCookieProcessor(cookie_jar))
+    response = opener.open(req)
+    a=response.geturl()
     code = a.split('=')[1].rstrip()
     r = client.request_access_token(code)
     access_token = r.access_token
